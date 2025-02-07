@@ -1,0 +1,11 @@
+:root {
+    /* 🎨 Cores Institucionais */
+    --primary-color: #004085;  /* Azul escuro formal */
+    --secondary-color: #FFC107; /* Amarelo destaque */
+    --background-color: #F8F9FA; /* Cinza claro */
+    --text-color: #212529; /* Texto preto moderno */
+    
+    /* 🖋️ Tipografia */
+    --font-family: 'Roboto', sans-serif;
+    --heading-font: 'Merriweather', serif;
+}
