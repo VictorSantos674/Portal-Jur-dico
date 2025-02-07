@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { buscarProcesso } from "../services/api";
 
 export default function Processos() {
   const [processo, setProcesso] = useState("");
+  const [resultado, setResultado] = useState(null);
+
+  const handleConsulta = async () => {
+    const dados = await buscarProcesso(processo);
+    setResultado(dados);
+  };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -12,7 +19,8 @@ export default function Processos() {
         value={processo}
         onChange={(e) => setProcesso(e.target.value)}
       />
-      <button>Consultar</button>
+      <button onClick={handleConsulta}>Consultar</button>
+      {resultado && <p>Detalhes do Processo: {JSON.stringify(resultado)}</p>}
     </div>
   );
 }
