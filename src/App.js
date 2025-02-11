@@ -4,8 +4,9 @@ import { useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "./styles/global.css";
 
 const ProtectedRoute = ({ element }) => {
@@ -16,14 +17,17 @@ const ProtectedRoute = ({ element }) => {
 function App() {
     return (
         <Router>
-            <Header />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
-                <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-            <Footer />
+            <ErrorBoundary>
+                <Navbar/>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+                <Footer />
+            </ErrorBoundary>            
         </Router>
     );
 }
