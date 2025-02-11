@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useForm } from "../hooks/useForm";
 import "../styles/login.css";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { values, handleChange } = useForm({ email: "", password: "" });
     const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email === "admin@tribunal.com" && password === "123456") {
-            login(); // Salva pra autenticar depois
+            login({ email: values.email, token: "fake-token" }); // Salva pra autenticar depois
             navigate("/dashboard"); // Redireciona para o painel
         } else {
             alert("Credenciais inválidas! Tente novamente.");
@@ -26,16 +26,18 @@ const Login = () => {
                 <label>Email:</label>
                 <input 
                     type="email" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
+                    name="email"
+                    value={values.email} 
+                    onChange={handleChange} 
                     required 
                 />
 
                 <label>Senha:</label>
                 <input 
                     type="password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
+                    name="password"
+                    value={values.password} 
+                    onChange={handleChange} 
                     required 
                 />
 

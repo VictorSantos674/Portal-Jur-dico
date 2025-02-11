@@ -23,9 +23,9 @@ export default function Navbar() {
     <NavbarContainer>
       <h1 style={{ color: "white" }}>Tribunal Portal</h1>
       <NavLinks>
-        <Link to="/">Home</Link>
-        <Link to="/processos">Processos</Link>
-        <Link to="/contato">Contato</Link>
+        <Link to="/" aria-label>Home</Link>
+        <Link to="/processos" aria-label>Processos</Link>
+        <Link to="/contato" aria-label>Contato</Link>
       </NavLinks>
     </NavbarContainer>
   );

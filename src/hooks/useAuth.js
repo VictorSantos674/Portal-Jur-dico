@@ -17,6 +17,9 @@ export const useAuth = () => {
     }, []);
 
     const login = (userData) => {
+        if (!userData || !userData.email || !userData.token) {
+            throw new Error("Dados do usuário inválidos.");
+        }
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
     };

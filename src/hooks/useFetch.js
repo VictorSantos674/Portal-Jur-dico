@@ -11,21 +11,26 @@ export const useFetch = (url, options = {}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url, options);
-                if (!response.ok) throw new Error("Erro ao buscar dados");
-                const result = await response.json();
-                setData(result);
-            } catch (err) {
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const controller = new AbortController();
+            const response = await fetch(url, { ...options, signal: controller.signal });
+            if (!response.ok) throw new Error("Erro ao buscar dados");
+            const result = await response.json();
+            setData(result);
+        } catch (err) {
+            if (err.name !== "AbortError") {
                 setError(err.message);
-            } finally {
-                setLoading(false);
             }
-        };
-        fetchData();
-    }, [url, options]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (autoFetch) fetchData();
+    }, [url, options, autoFetch]);
 
     return { data, loading, error };
 };
